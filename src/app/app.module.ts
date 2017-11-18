@@ -1,8 +1,17 @@
+import { HomeModule } from './home/home.module';
+import { CommonModule } from '@angular/common';
+import { NavBarModule } from './nav-bar/nav-bar.module';
+import { LoginModule } from './login/login.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
 
 
 @NgModule({
@@ -10,7 +19,14 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    HttpModule,
+    HomeModule,
+    LoginModule,
+    NavBarModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

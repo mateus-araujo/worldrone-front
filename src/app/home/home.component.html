@@ -1,0 +1,79 @@
+<p-growl [value]="msgs"></p-growl>
+
+<div class="home">
+  <p-panel>
+    <p-header>
+      <div class="ui-helper-clearfix">
+        <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Meus eventos</span>
+
+        <button pButton style="float:right" label="Novo evento" icon="fa-plus" (click)="dialogEvento()"></button>
+      </div>
+    </p-header>
+    The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. His beloved
+    son Michael has just come home from the war, but does not intend to become part of his father's business. Through Michael's
+    life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+    kind and benevolent to those who give respect, but given to ruthless violence whenever anything stands against the good
+    of the family.
+    <p-footer>
+      <button pButton type="button" icon="fa-plus" label="New" class="ui-button-info"></button>
+      <button pButton type="button" icon="fa-list" label="View" class="ui-button-success"></button>
+    </p-footer>
+  </p-panel>
+</div>
+
+<p-dialog header="Novo evento" [(visible)]="display" modal="modal" width="450" [responsive]="true">
+  <form [formGroup]="formulario" (ngSubmit)="addEvento()">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <div class="ui-g-3">
+          <label for="nome">Nome *:</label>
+        </div>
+
+        <div class="ui-g-9">
+          <input pInputText formControlName="nome" />
+        </div>
+
+        <div class="ui-g-offset-3 ui-g-9">
+          <app-error-component [showError]="checkFieldValidation('nome')" errorMsg="Preencha com algum nome">
+          </app-error-component>
+        </div>
+      </div>
+
+      <div class="ui-g-12">
+        <div class="ui-g-3">
+          <label for="preco">Data *:</label>
+        </div>
+
+        <div class="ui-g-9">
+          <p-inputMask mask="99/99/9999" formControlName="data" placeholder="18/11/2017" slotChar="dd/mm/aaaa"></p-inputMask>
+        </div>
+
+        <div class="ui-g-offset-3 ui-g-9">
+          <app-error-component [showError]="checkFieldValidation('data')" errorMsg="Preencha com alguma data">
+          </app-error-component>
+        </div>
+      </div>
+
+      <div class="ui-g-12">
+        <div class="ui-g-3">
+          <label for="descricao">Descrição *:</label>
+        </div>
+
+        <div class="ui-g-9">
+          <textarea pInputTextarea rows="3" cols="30" autoResize="autoResize" formControlName="descricao"></textarea>
+        </div>
+
+        <div class="ui-g-offset-3 ui-g-9">
+          <app-error-component [showError]="checkFieldValidation('descricao')" errorMsg="Preencha com alguma descrição">
+          </app-error-component>
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="fa-close" (click)="cancelar()" label="Cancelar"></button>
+        <button type="submit" pButton icon="fa-check" label="Adicionar"></button>
+      </div>
+    </p-footer>
+  </form>
+</p-dialog>

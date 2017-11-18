@@ -1,0 +1,51 @@
+<div class="loginExterno">
+  <p-growl [value]="msgs" sticky="sticky"></p-growl>
+
+  <form [formGroup]="formulario" (ngSubmit)="login()">
+    <p-panel header="Login">
+      <div class="ui-g ui-fluid loginInterno">
+        <div class="ui-g-12">
+          <h3>Informe abaixo seus dados de acesso</h3>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon">
+                <i class="fa fa-user"></i>
+              </span>
+              <input type="text" pInputText formControlName="usuario" placeholder="Usuário">
+            </div>
+          </div>
+
+          <div class="ui-g-12">
+            <app-error-component [showError]="checkFieldValidation('usuario')" errorMsg="Usuário é requirido">
+            </app-error-component>
+          </div>
+        </div>
+
+        <div class="ui-g-12">
+          <div class="ui-g-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon">
+                <i class="fa fa-key"></i>
+              </span>
+              <input type="password" formControlName="senha" pInputText placeholder="Senha">
+            </div>
+
+            <div class="ui-g-12">
+              <app-error-component [showError]="checkFieldValidation('senha')" errorMsg="Senha é requerida">
+              </app-error-component>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-g-4"></div>
+        <div class="ui-g-4">
+          <button pButton type="submit" label="Acessar"></button>
+        </div>
+        <div class="ui-g-4"></div>
+      </div>
+    </p-panel>
+  </form>
+  <!-- <app-form-debug [form]="formulario"></app-form-debug> -->
+</div>
