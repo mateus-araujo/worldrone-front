@@ -39,4 +39,10 @@ export class UserService {
       .toPromise()
       .then(response => response.json());
   }
+
+  getUsers(): Promise<Array<User>> {
+    return this.http.get(`${this.baseURL}/users`)
+      .toPromise()
+      .then(response => response.json());
+  }
 }

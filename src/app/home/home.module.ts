@@ -11,6 +11,7 @@ import {
 
 import { HomeClienteComponent } from './cliente/home-cliente.component';
 import { HomeAdminComponent } from './admin/home-admin.component';
+import { ShowUsersComponent } from './show-users/show-users.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,6 @@ import { HomeAdminComponent } from './admin/home-admin.component';
     InputTextModule,
     InputMaskModule
   ],
-  declarations: [HomeComponent, HomeClienteComponent, HomeAdminComponent]
+  declarations: [HomeComponent, HomeClienteComponent, HomeAdminComponent, ShowUsersComponent]
 })
 export class HomeModule { }
