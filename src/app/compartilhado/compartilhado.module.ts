@@ -1,4 +1,4 @@
-import { UsuarioService } from './services/usuario.service';
+import { UserService } from './services/user.service';
 import { HttpModule } from '@angular/http';
 import { FormDebugComponent } from './form-debug/form-debug.component';
 import { NgModule } from '@angular/core';
@@ -19,6 +19,6 @@ import { ErrorComponent } from './error-component/error.component';
     ErrorComponent
   ],
   providers: [
-    UsuarioService]
+    UserService]
 })
 export class CompartilhadoModule { }

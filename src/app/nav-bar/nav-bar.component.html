@@ -20,10 +20,13 @@
         <a class="nav-link" *ngIf="admin" href="#">Usuários</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="logado" (click)="sair()" href="#">Sair do sistema</a>
+        <a class="nav-link" [routerLink]="['/cadastro']">Cadastro</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/login']" *ngIf="!logado" href="#">Login</a>
+        <a class="nav-link" *ngIf="logado" style="cursor: pointer" (click)="sair()">Sair do sistema</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/login']" *ngIf="!logado">Login</a>
       </li>
     </ul>
   </div>

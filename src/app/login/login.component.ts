@@ -1,3 +1,5 @@
+import { GlobalService } from './../compartilhado/services/global.service';
+import { UserService } from './../compartilhado/services/user.service';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -21,11 +23,13 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: Http,
     private router: Router,
+    private userService: UserService,
+    private globalService: GlobalService
   ) { }
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
-      usuario: [null, Validators.required],
+      email: [null, Validators.required],
       senha: [null, Validators.required]
     });
   }
@@ -50,12 +54,37 @@ export class LoginComponent implements OnInit {
     if (this.formulario.valid) {
 
       const user = new User();
-      user.email = this.formulario.get('usuario').value;
+      user.email = this.formulario.get('email').value;
       user.password = this.formulario.get('senha').value;
 
-      console.log(user);
+      this.userService.login(user).then(
+        (usuario: User) => {
+          this.usuario = usuario;
+          this.globalService.updateLogado(true);
+          this.globalService.updateTipoUsuario(usuario.nivel);
 
-      this.formulario.reset();
+          console.log(usuario);
+
+          this.msgs = [];
+          this.msgs = [{
+            severity: 'success',
+            summary: 'Login',
+            detail: 'Login realizado'
+          }];
+
+          this.formulario.reset();
+          this.router.navigate(['home']);
+        }
+      );
+
+      if (this.usuario === undefined) {
+        this.msgs = [];
+        this.msgs = [{
+          severity: 'warn',
+          summary: 'Login',
+          detail: 'Email ou senha incorreta'
+        }];
+      }
     } else {
       this.checkFormValidations(this.formulario);
 
@@ -63,7 +92,7 @@ export class LoginComponent implements OnInit {
       this.msgs = [{
         severity: 'error',
         summary: 'Login',
-        detail: 'Dados incorretos, tente novamente'
+        detail: 'Preencha os dados corretamente'
       }];
     }
   }

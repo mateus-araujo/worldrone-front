@@ -1,0 +1,113 @@
+<p-growl [value]="msgs"></p-growl>
+<p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+
+<div class="cadastro">
+  <p-fieldset legend="Cadastro">
+    <form class="form" [formGroup]="formulario" (ngSubmit)="cadastrar()">
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+          <div class="ui-g-2">
+            <label>Nome *: </label>
+          </div>
+          <div class="ui-g-6">
+            <input pInputText type="text" formControlName="name">
+          </div>
+
+          <div class="ui-g-4">
+            <app-error-component [showError]="checkFieldValidation('name')" errorMsg="Nome é requerido">
+            </app-error-component>
+          </div>
+        </div>
+
+        <div class="ui-g-12">
+          <div class="ui-g-2">
+            <label>Email *: </label>
+          </div>
+
+          <div class="ui-g-4">
+            <input type="email" pInputText formControlName="email">
+          </div>
+
+          <div class="ui-g-5">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!formulario.controls['email'].valid && formulario.controls['email'].dirty">
+              <i class="fa fa-close"></i>
+              <span *ngIf="formulario.controls['email'].errors['required']">Email requirido;</span>
+              <span *ngIf="formulario.controls['email'].errors['email']">Digite um email válido;</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ui-g-6">
+          <div class="ui-g-4">
+            <label>Senha *: </label>
+          </div>
+          <div class="ui-g-6">
+            <input type="password" pPassword formControlName="password" [feedback]="false">
+          </div>
+        </div>
+
+        <div class="ui-g-6">
+          <div class="ui-g-4">
+            <label>Confirmar senha *: </label>
+          </div>
+          <div class="ui-g-6">
+            <input type="password" pPassword formControlName="password_conf" [feedback]="false">
+          </div>
+        </div>
+
+        <div class="ui-g-12">
+          <div class="ui-grid ui-grid-resposive">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-2"></div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!formulario.controls['password'].valid && 
+                                (formulario.controls['password'].touched || 
+                                formulario.controls['password'].dirty)">
+                  <i class="fa fa-close"></i>
+                  <span *ngIf="formulario.controls['password'].errors['required']">
+                    Senha requerida;
+                  </span>
+                  <span *ngIf="formulario.controls['password'].errors['minlength']">
+                    Senha deve ter pelo menos de 6 caracteres;
+                  </span>
+                  <span *ngIf="formulario.controls['password'].value != 
+                          formulario.controls['password_conf'].value &&
+                          formulario.controls['password_conf'].value != null">
+                    Senhas diferentes;
+                  </span>
+                </div>
+              </div>
+
+              <div class="ui-grid-col-2"></div>
+              <div class="ui-grid-col-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!formulario.controls['password_conf'].valid && 
+                              (formulario.controls['password_conf'].touched || 
+                              formulario.controls['password_conf'].dirty)">
+                  <i class="fa fa-close"></i>
+                  <span *ngIf="formulario.controls['password'].value != 
+                                     formulario.controls['password_conf'].value &&
+                                     formulario.controls['password_conf'].value != null">
+                    Senhas diferentes;
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ui-g-4"></div>
+          <div class="ui-g-2">
+            <button pButton type="button" (click)="cancelar()" icon="fa-close" label="Cancelar">
+            </button>
+          </div>
+
+          <div class="ui-g-2">
+            <button pButton type="submit" icon="fa-check" label="Salvar">
+            </button>
+          </div>
+          <div class="ui-g-4"></div>
+        </div>
+      </div>
+    </form>
+  </p-fieldset>
+</div>

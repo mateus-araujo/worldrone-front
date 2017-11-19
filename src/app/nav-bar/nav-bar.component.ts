@@ -1,5 +1,8 @@
+import { GlobalService } from './../compartilhado/services/global.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../compartilhado/services/user.service';
+import { window } from 'rxjs/operators/window';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,21 +17,34 @@ export class NavBarComponent implements OnInit {
   logado: boolean;
 
   constructor(
+    private globalService: GlobalService,
+    private userService: UserService,
     private router: Router
   ) {
-    this.cliente = false;
-    this.admin = true;
-    this.logado = false;
+
+    this.globalService.checkLogin.subscribe(
+      (dado: boolean) => this.logado = dado
+    );
+
+    this.globalService.usuarioTipo.subscribe(
+      (dado: number) => {
+        if (dado === 1) {
+          this.cliente = false;
+          this.admin = true;
+        } else if (dado === 2) {
+          this.admin = false;
+          this.cliente = true;
+        }
+      }
+    );
   }
 
   ngOnInit() {
   }
 
-  login() {
-    this.router.navigate(['login']);
-  }
-
   sair() {
-    this.logado = false;
+    this.userService.logout().then();
+    location.reload();
+    this.router.navigate(['login']);
   }
 }

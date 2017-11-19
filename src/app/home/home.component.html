@@ -4,7 +4,8 @@
   <p-panel>
     <p-header>
       <div class="ui-helper-clearfix">
-        <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Meus eventos</span>
+        <span  *ngIf="admin" class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Eventos</span>
+        <span *ngIf="cliente" class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Meus eventos</span>
 
         <button pButton style="float:right" label="Novo evento" icon="fa-plus" (click)="dialogEvento()"></button>
       </div>

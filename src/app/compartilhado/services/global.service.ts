@@ -1,45 +1,31 @@
-import { UsuarioService } from './usuario.service';
+import { UserService } from './user.service';
 import { User } from './../models/user.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class GlobalService {
-  private prestadores = new BehaviorSubject<Array<User>>([]);
-  prestadoresBusca = this.prestadores.asObservable();
+  private tipo_usuario = new BehaviorSubject<number>(1);
+  usuarioTipo = this.tipo_usuario.asObservable();
 
-  private usuario = new BehaviorSubject<number>(1);
-  usuarioTipo = this.usuario.asObservable();
-
-  private prestador = new BehaviorSubject<any>('');
-  prestadorPerfil = this.prestador.asObservable();
-
-  private login = new BehaviorSubject<boolean>(false);
-  checkLogin = this.login.asObservable();
+  private logado = new BehaviorSubject<boolean>(false);
+  checkLogin = this.logado.asObservable();
 
   constructor(
-    private usuarioService: UsuarioService
+    private userService: UserService
   ) {
-    this.usuarioService.checkLogin().then(
+    this.userService.checkLogin().then(
       (user: User) => {
-        this.updateLogin(true);
-        this.updateUsuario(user.tipo_usuario);
+        this.updateLogado(true);
+        this.updateTipoUsuario(user.nivel);
       });
   }
 
-  updatePrestadores(array: Array<User>) {
-    this.prestadores.next(array);
+  updateTipoUsuario(user: number) {
+    this.tipo_usuario.next(user);
   }
 
-  updateUsuario(user: number) {
-    this.usuario.next(user);
-  }
-
-  updatePrestador(prestador: User) {
-    this.prestador.next(prestador);
-  }
-
-  updateLogin(login: boolean) {
-    this.login.next(login);
+  updateLogado(login: boolean) {
+    this.logado.next(login);
   }
 }

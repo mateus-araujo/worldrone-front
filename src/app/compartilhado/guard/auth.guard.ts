@@ -1,9 +1,9 @@
-import { User } from './../models/user.model';
-import { UsuarioService } from './../services/usuario.service';
-import { GlobalService } from './../services/global.service';
 import { Observable } from 'rxjs/Rx';
+import { User } from './../models/user.model';
+import { GlobalService } from './../services/global.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private globalService: GlobalService,
-    private usuarioService: UsuarioService,
+    private usuarioService: UserService,
     private router: Router
   ) { }
 
@@ -22,14 +22,8 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
 
-    this.usuarioService.checkLogin().then(
-      (usuario: User) => {
-        this.globalService.updateLogin(true);
-        this.globalService.updateUsuario(usuario.tipo_usuario);
-
-        this.globalService.checkLogin.subscribe(
-          (login: boolean) => this.checkLogin = login);
-      });
+    this.globalService.checkLogin.subscribe(
+      (login: boolean) => this.checkLogin = login);
 
     if (this.checkLogin) {
       return true;

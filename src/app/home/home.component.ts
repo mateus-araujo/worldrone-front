@@ -11,6 +11,10 @@ import { MenuItem } from 'primeng/components/common/menuitem';
 })
 export class HomeComponent implements OnInit {
 
+  logado: boolean;
+  admin: boolean;
+  cliente: boolean;
+
   formulario: FormGroup;
 
   msgs: Message[] = [];
@@ -19,6 +23,10 @@ export class HomeComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder
   ) {
+    this.logado = false;
+    this.admin = true;
+    this.cliente = false;
+
     this.display = false;
   }
 

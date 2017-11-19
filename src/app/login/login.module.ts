@@ -1,5 +1,5 @@
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ButtonModule, CheckboxModule, DialogModule, InputTextModule, FieldsetModule, GrowlModule, PanelModule } from 'primeng/primeng';
+import { ButtonModule, CheckboxModule, DialogModule, InputTextModule, FieldsetModule, GrowlModule, Fieldset } from 'primeng/primeng';
 import { CompartilhadoModule } from './../compartilhado/compartilhado.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,7 @@ import { LoginComponent } from './login.component';
     InputTextModule,
     FieldsetModule,
     GrowlModule,
-    PanelModule
+    FieldsetModule
   ],
   declarations: [LoginComponent]
 })
