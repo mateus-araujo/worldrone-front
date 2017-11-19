@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/components/common/message';
 import { User } from '../compartilhado/models/user.model';
+import { error } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-login',
@@ -63,8 +64,6 @@ export class LoginComponent implements OnInit {
           this.globalService.updateLogado(true);
           this.globalService.updateTipoUsuario(usuario.nivel);
 
-          console.log(usuario);
-
           this.msgs = [];
           this.msgs = [{
             severity: 'success',
@@ -74,17 +73,15 @@ export class LoginComponent implements OnInit {
 
           this.formulario.reset();
           this.router.navigate(['home']);
+        }, err => {
+          this.msgs = [];
+          this.msgs = [{
+            severity: 'warn',
+            summary: 'Login',
+            detail: 'Email ou senha incorretos'
+          }];
         }
       );
-
-      if (this.usuario === undefined) {
-        this.msgs = [];
-        this.msgs = [{
-          severity: 'warn',
-          summary: 'Login',
-          detail: 'Email ou senha incorreta'
-        }];
-      }
     } else {
       this.checkFormValidations(this.formulario);
 

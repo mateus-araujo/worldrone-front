@@ -18,7 +18,10 @@ export class GlobalService {
       (user: User) => {
         this.updateLogado(true);
         this.updateTipoUsuario(user.nivel);
-      });
+      }, err => {
+        console.log('User not connected');
+      }
+    );
   }
 
   updateTipoUsuario(user: number) {
