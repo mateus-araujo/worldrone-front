@@ -9,6 +9,9 @@ import {
   CodeHighlighterModule, DialogModule, InputTextModule, InputMaskModule, InputTextareaModule
 } from 'primeng/primeng';
 
+import { HomeClienteComponent } from './cliente/home-cliente.component';
+import { HomeAdminComponent } from './admin/home-admin.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -26,6 +29,6 @@ import {
     InputTextModule,
     InputMaskModule
   ],
-  declarations: [HomeComponent]
+  declarations: [HomeComponent, HomeClienteComponent, HomeAdminComponent]
 })
 export class HomeModule { }

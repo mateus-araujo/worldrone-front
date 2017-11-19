@@ -23,15 +23,15 @@ export class NavBarComponent implements OnInit {
   ) {
 
     this.globalService.checkLogin.subscribe(
-      (dado: boolean) => this.logado = dado
+      (login: boolean) => this.logado = login
     );
 
     this.globalService.usuarioTipo.subscribe(
-      (dado: number) => {
-        if (dado === 1) {
+      (tipo: number) => {
+        if (tipo === 1) {
           this.cliente = false;
           this.admin = true;
-        } else if (dado === 2) {
+        } else if (tipo === 2) {
           this.admin = false;
           this.cliente = true;
         }

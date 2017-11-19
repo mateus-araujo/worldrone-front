@@ -6,7 +6,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/components/common/message';
 import { User } from '../compartilhado/models/user.model';
-import { error } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-login',
