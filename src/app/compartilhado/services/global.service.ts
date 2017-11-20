@@ -5,11 +5,14 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class GlobalService {
-  private tipo_usuario = new BehaviorSubject<number>(1);
-  usuarioTipo = this.tipo_usuario.asObservable();
-
   private logado = new BehaviorSubject<boolean>(false);
   checkLogin = this.logado.asObservable();
+
+  private tipo_usuario = new BehaviorSubject<number>(2);
+  usuarioTipo = this.tipo_usuario.asObservable();
+
+  private id_usuario = new BehaviorSubject<number>(1);
+  usuarioId = this.id_usuario.asObservable();
 
   constructor(
     private userService: UserService
@@ -18,17 +21,22 @@ export class GlobalService {
       (user: User) => {
         this.updateLogado(true);
         this.updateTipoUsuario(user.nivel);
+        this.updateId(user.id);
       }, err => {
         console.log('User not connected');
       }
     );
   }
 
-  updateTipoUsuario(user: number) {
-    this.tipo_usuario.next(user);
-  }
-
   updateLogado(login: boolean) {
     this.logado.next(login);
+  }
+
+  updateTipoUsuario(tipo: number) {
+    this.tipo_usuario.next(tipo);
+  }
+
+  updateId(id: number) {
+    this.id_usuario.next(id);
   }
 }

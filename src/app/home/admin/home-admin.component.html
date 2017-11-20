@@ -7,7 +7,7 @@
 
       
       
-      <button pButton style="float:right" label="Drone alugados" icon="fa-eye" (click)="showDrones()"></button>
+      <button pButton style="float:right" label="Drone alugados" icon="fa-eye" (click)="showAlugaDrones()"></button>
       <button pButton style="float:right" label="Drones" icon="fa-eye" (click)="showDrones()"></button>
       <button pButton style="float:right" label="Usuários" icon="fa-eye" (click)="showUsers()"></button>
     </div>
@@ -15,11 +15,12 @@
 
   <app-show-users *ngIf="show_users" [users]="users"></app-show-users>
   <app-show-drones *ngIf="show_drones" [drones]="drones"></app-show-drones>
+  <app-show-aluga-drone *ngIf="show_alugaDrones" [alugaDrones]="alugaDrones"></app-show-aluga-drone>
 
   <p-footer>
-    <button *ngIf="show_drones" pButton type="button" icon="fa-plus" label="Novo Drone" (click)="dialogDrone()" class="ui-button-info">
+    <button *ngIf="show_drones" pButton type="button" icon="fa-plus" label="Novo Drone" (click)="dialogDrone()">
     </button>
-    <button *ngIf="show_users" pButton type="button" icon="fa-plus" label="Novo usuário" [routerLink]="['/cadastro']" class="ui-button-info">
+    <button *ngIf="show_users" pButton type="button" icon="fa-plus" label="Novo usuário" [routerLink]="['/cadastro']">
     </button>
     <!-- <button pButton type="button" icon="fa-list" label="View" class="ui-button-success"></button> -->
   </p-footer>

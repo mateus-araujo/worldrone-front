@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
           this.usuario = usuario;
           this.globalService.updateLogado(true);
           this.globalService.updateTipoUsuario(usuario.nivel);
+          this.globalService.updateId(usuario.id);
 
           this.msgs = [];
           this.msgs = [{

@@ -3,62 +3,77 @@
     <div class="ui-helper-clearfix">
       <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Meus eventos</span>
 
-      <button pButton style="float:right" label="Novo evento" icon="fa-plus" (click)="dialogEvento()"></button>
+      <!-- <button pButton style="float:right" label="Novo evento" icon="fa-plus" (click)="dialogEvento()"></button> -->
     </div>
   </p-header>
 
   <h1>Eventos do usuário</h1>
 
   <p-footer>
-    <button pButton type="button" icon="fa-plus" label="Alugar novo drone" class="ui-button-info"></button>
+    <button pButton type="button" icon="fa-plus" label="Alugar novo drone" (click)="dialogAluguel()"></button>
     <!-- <button pButton type="button" icon="fa-list" label="View" class="ui-button-success"></button> -->
   </p-footer>
 </p-panel>
 
-<p-dialog header="Novo evento" [(visible)]="display" modal="modal" width="450" [responsive]="true">
-  <form [formGroup]="formulario" (ngSubmit)="addEvento()">
+<p-dialog header="Alugar novo drone" [(visible)]="displayAluguel" modal="modal" width="450" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
+  <form [formGroup]="formulario" (ngSubmit)="addAluguel()">
     <div class="ui-g ui-fluid">
       <div class="ui-g-12">
         <div class="ui-g-3">
-          <label for="nome">Nome *:</label>
+          <label for="drone">Drone *:</label>
         </div>
-
+      
         <div class="ui-g-9">
-          <input pInputText formControlName="nome" />
+          <p-dropdown [options]="drones" formControlName="drone" placeholder="Selecione um"></p-dropdown>
         </div>
-
+      
         <div class="ui-g-offset-3 ui-g-9">
-          <app-error-component [showError]="checkFieldValidation('nome')" errorMsg="Preencha com algum nome">
+          <app-error-component [showError]="checkFieldValidation('drone')" errorMsg="Selecione algum drone">
           </app-error-component>
         </div>
       </div>
 
       <div class="ui-g-12">
         <div class="ui-g-3">
-          <label for="preco">Data *:</label>
+          <label for="valor">Valor *:</label>
         </div>
 
         <div class="ui-g-9">
-          <p-inputMask mask="99/99/9999" formControlName="data" placeholder="18/11/2017" slotChar="dd/mm/aaaa"></p-inputMask>
+          <input pInputText formControlName="valor" />
         </div>
 
         <div class="ui-g-offset-3 ui-g-9">
-          <app-error-component [showError]="checkFieldValidation('data')" errorMsg="Preencha com alguma data">
+          <app-error-component [showError]="checkFieldValidation('valor')" errorMsg="Preencha com algum valor">
           </app-error-component>
         </div>
       </div>
 
       <div class="ui-g-12">
         <div class="ui-g-3">
-          <label for="descricao">Descrição *:</label>
+          <label for="data_inicio">Data início *:</label>
         </div>
 
         <div class="ui-g-9">
-          <textarea pInputTextarea rows="3" cols="30" autoResize="autoResize" formControlName="descricao"></textarea>
+          <p-inputMask mask="99/99/9999" formControlName="data_inicio" placeholder="18/11/2017" slotChar="dd/mm/aaaa"></p-inputMask>
         </div>
 
         <div class="ui-g-offset-3 ui-g-9">
-          <app-error-component [showError]="checkFieldValidation('descricao')" errorMsg="Preencha com alguma descrição">
+          <app-error-component [showError]="checkFieldValidation('data_inicio')" errorMsg="Preencha com alguma data">
+          </app-error-component>
+        </div>
+      </div>
+
+      <div class="ui-g-12">
+        <div class="ui-g-3">
+          <label for="data_final">Data final *:</label>
+        </div>
+      
+        <div class="ui-g-9">
+          <p-inputMask mask="99/99/9999" formControlName="data_final" placeholder="18/11/2017" slotChar="dd/mm/aaaa"></p-inputMask>
+        </div>
+      
+        <div class="ui-g-offset-3 ui-g-9">
+          <app-error-component [showError]="checkFieldValidation('data_final')" errorMsg="Preencha com alguma data">
           </app-error-component>
         </div>
       </div>

@@ -4,4 +4,7 @@ export class AlugaDrone {
     valor: number;
     data_inicio: string;
     data_final: string;
+
+    user_name: string;
+    drone_name: string;
 }

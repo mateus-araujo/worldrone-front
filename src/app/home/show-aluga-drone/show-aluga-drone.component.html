@@ -1,0 +1,33 @@
+<p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+
+<p-dataList [value]="alugaDrones" [paginator]="true" [rows]="5">
+  <p-header>
+    Drones alugados
+  </p-header>
+  <ng-template let-alugadrone pTemplate="item">
+    <div class="ui-g ui-fluid alugadrone-item">
+      <div class="ui-g-10 alugadrone-details">
+        <div class="ui-g">
+          <div class="ui-g-2 ui-sm-6">Usuário: </div>
+          <div class="ui-g-10 ui-sm-6">{{ alugadrone.user_name }}</div>
+
+          <div class="ui-g-2 ui-sm-6">Drone: </div>
+          <div class="ui-g-10 ui-sm-6">{{ alugadrone.drone_name }}</div>
+
+          <div class="ui-g-2 ui-sm-6">Valor do aluguel: </div>
+          <div class="ui-g-10 ui-sm-6">{{ alugadrone.valor }}</div>
+
+          <div class="ui-g-2 ui-sm-6">Data início: </div>
+          <div class="ui-g-10 ui-sm-6">{{ alugadrone.data_inicio }}</div>
+
+          <div class="ui-g-2 ui-sm-6">Data Final: </div>
+          <div class="ui-g-10 ui-sm-6">{{ alugadrone.data_final }}</div>
+        </div>
+      </div>
+      <div class="ui-g-2">
+        <button pButton type="button" icon="fa-trash" label="Remover" class="ui-button-danger">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</p-dataList>

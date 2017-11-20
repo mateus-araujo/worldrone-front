@@ -9,13 +9,14 @@ import { HomeComponent } from './home.component';
 import {
   PanelModule, GrowlModule, ButtonModule, SplitButtonModule, TabViewModule,
   CodeHighlighterModule, DialogModule, InputTextModule, InputMaskModule,
-  InputTextareaModule, FileUploadModule, DataListModule, ConfirmDialogModule
+  InputTextareaModule, FileUploadModule, DataListModule, ConfirmDialogModule, DropdownModule
 } from 'primeng/primeng';
 
 import { HomeClienteComponent } from './cliente/home-cliente.component';
 import { HomeAdminComponent } from './admin/home-admin.component';
 import { ShowUsersComponent } from './show-users/show-users.component';
 import { ShowDronesComponent } from './show-drones/show-drones.component';
+import { ShowAlugaDroneComponent } from './show-aluga-drone/show-aluga-drone.component';
 
 @NgModule({
   imports: [
@@ -36,8 +37,9 @@ import { ShowDronesComponent } from './show-drones/show-drones.component';
     InputMaskModule,
     FileUploadModule,
     DataListModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DropdownModule
   ],
-  declarations: [HomeComponent, HomeClienteComponent, HomeAdminComponent, ShowUsersComponent, ShowDronesComponent]
+  declarations: [HomeComponent, HomeClienteComponent, HomeAdminComponent, ShowUsersComponent, ShowDronesComponent, ShowAlugaDroneComponent]
 })
 export class HomeModule { }

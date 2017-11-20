@@ -1,7 +1,14 @@
+import { AlugaDroneService } from './../../compartilhado/services/aluga-drone.service';
+import { GlobalService } from './../../compartilhado/services/global.service';
+import { AlugaDrone } from './../../compartilhado/models/aluga-drone.model';
+import { UserService} from './../../compartilhado/services/user.service';
+import { DroneService } from './../../compartilhado/services/drone.service';
 import { Evento } from './../../compartilhado/models/evento.model';
 import { Message } from 'primeng/components/common/message';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Drone } from '../../compartilhado/models/drone.model';
+import { SelectItem } from 'primeng/components/common/selectitem';
 
 @Component({
   selector: 'app-home-cliente',
@@ -11,26 +18,52 @@ import { Component, OnInit } from '@angular/core';
 export class HomeClienteComponent implements OnInit {
 
   formulario: FormGroup;
+  // drones: Array<Drone>;
+  drones: SelectItem[];
 
   msgs: Message[] = [];
-  display: boolean;
+  displayAluguel: boolean;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private droneService: DroneService,
+    private alugaDrone: AlugaDroneService,
+    private userService: UserService,
+    private globalService: GlobalService
   ) {
-    this.display = false;
+    this.displayAluguel = false;
+
+    this.droneService.getAllDrones().then(
+      (drones: Array<Drone>) => {
+        drones = drones.sort(function (a, b: Drone) {
+          return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
+        });
+
+        this.drones = [];
+        for (let i = 0; i < drones.length; i++) {
+          this.drones.push({
+            label: drones[i].name,
+            value: {
+              id: drones[i].id,
+              name: drones[i].name
+            }
+          });
+        }
+      }
+    );
   }
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
-      nome: [null, Validators.required],
-      data: [null, Validators.required],
-      descricao: [null, Validators.required]
+      drone: [null, Validators.required],
+      valor: [null, Validators.required],
+      data_inicio: [null, Validators.required],
+      data_final: [null, Validators.required],
     });
   }
 
-  dialogEvento() {
-    this.display = true;
+  dialogAluguel() {
+    this.displayAluguel = true;
   }
 
   checkFieldValidation(field) {
@@ -50,21 +83,28 @@ export class HomeClienteComponent implements OnInit {
   }
 
   cancelar() {
-    this.display = false;
+    this.displayAluguel = false;
     this.formulario.reset();
   }
 
-  addEvento() {
+  addAluguel() {
     if (this.formulario.valid) {
 
-      const evento = new Evento();
-      evento.nome = this.formulario.get('nome').value;
-      evento.data = this.formulario.get('data').value;
-      evento.descricao = this.formulario.get('descricao').value;
+      const alugaDrone = new AlugaDrone();
 
-      console.log(evento);
+      this.globalService.usuarioId.subscribe(
+        (id: number) => alugaDrone.user_id = id
+      );
+      alugaDrone.drone_id = this.formulario.get('drone').value.id;
+      alugaDrone.valor = this.formulario.get('valor').value;
+      alugaDrone.data_inicio = this.formulario.get('data_inicio').value;
+      alugaDrone.data_final = this.formulario.get('data_final').value;
 
-      this.display = false;
+      console.log(alugaDrone);
+
+      this.alugaDrone.createAlugaDrone(alugaDrone);
+
+      this.displayAluguel = false;
       this.formulario.reset();
 
       this.msgs = [];

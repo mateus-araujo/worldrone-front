@@ -1,3 +1,5 @@
+import { AlugaDrone } from './../../compartilhado/models/aluga-drone.model';
+import { AlugaDroneService } from './../../compartilhado/services/aluga-drone.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Drone } from './../../compartilhado/models/drone.model';
 import { DroneService } from './../../compartilhado/services/drone.service';
@@ -15,9 +17,11 @@ export class HomeAdminComponent implements OnInit {
 
   users: Array<User>;
   drones: Array<Drone>;
+  alugaDrones: Array<AlugaDrone>;
   // file: any;
   show_users: boolean;
   show_drones: boolean;
+  show_alugaDrones: boolean;
   displayDrone: boolean;
 
   formulario: FormGroup;
@@ -27,6 +31,7 @@ export class HomeAdminComponent implements OnInit {
   constructor(
     private userService: UserService,
     private droneService: DroneService,
+    private alugaDroneService: AlugaDroneService,
     private formBuilder: FormBuilder
   ) {
     this.show_users = true;
@@ -47,6 +52,25 @@ export class HomeAdminComponent implements OnInit {
     this.droneService.getAllDrones().then(
       (drones: Array<Drone>) => {
         this.drones = drones;
+      }
+    );
+
+    this.alugaDroneService.getAllAlugaDrone().then(
+      (alugaDrones: Array<AlugaDrone>) => {
+        this.alugaDrones = alugaDrones;
+
+        for (let i = 0; i < alugaDrones.length; i++) {
+          const id_drone = alugaDrones[i].drone_id;
+          this.droneService.getDrone(id_drone).then(
+            (drone: Drone) => this.alugaDrones[i].drone_name = drone.name
+          );
+
+          const id_user = alugaDrones[i].user_id;
+          this.userService.getUser(id_user).then(
+            (user: User) => this.alugaDrones[i].user_name = user.name
+          );
+        }
+        console.log(this.alugaDrones);
       }
     );
   }
@@ -70,11 +94,19 @@ export class HomeAdminComponent implements OnInit {
   showUsers() {
     this.show_users = true;
     this.show_drones = false;
+    this.show_alugaDrones = false;
   }
 
   showDrones() {
     this.show_users = false;
     this.show_drones = true;
+    this.show_alugaDrones = false;
+  }
+
+  showAlugaDrones() {
+    this.show_users = false;
+    this.show_drones = false;
+    this.show_alugaDrones = true;
   }
 
   dialogDrone() {
