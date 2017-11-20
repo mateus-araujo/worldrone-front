@@ -1,16 +1,87 @@
 <p-panel>
   <p-header>
     <div class="ui-helper-clearfix">
-      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Meus eventos</span>
+      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">
+        Área do administrador
+      </span>
 
       <button pButton style="float:right" label="Usuários" icon="fa-eye" (click)="showUsers()"></button>
+      <button pButton style="float:right" label="Drones" icon="fa-eye" (click)="showDrones()"></button>
     </div>
   </p-header>
 
   <app-show-users *ngIf="show_users" [users]="users"></app-show-users>
+  <app-show-drones *ngIf="show_drones" [drones]="drones"></app-show-drones>
 
   <p-footer>
-    <button pButton type="button" icon="fa-plus" label="New" class="ui-button-info"></button>
+    <button *ngIf="show_drones" pButton type="button" icon="fa-plus" label="Novo Drone" (click)="dialogDrone()" class="ui-button-info">
+    </button>
+    <button *ngIf="show_users" pButton type="button" icon="fa-plus" label="Novo usuário" [routerLink]="['/cadastro']" class="ui-button-info">
+    </button>
     <button pButton type="button" icon="fa-list" label="View" class="ui-button-success"></button>
   </p-footer>
 </p-panel>
+
+<p-dialog header="Adicionar drone" [(visible)]="displayDrone" modal="modal" width="500" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
+  <form [formGroup]="formulario" (ngSubmit)="addDrone()">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <div class="ui-g-3">
+          <label for="image">Imagem *:</label>
+        </div>
+
+        <div class="ui-g-9">
+          <p-fileUpload mode="basic" name="image[]" accept="image/*" 
+            maxFileSize="1000000" (onSelect)="onSelect($event)" chooseLabel="Adicionar imagem">
+            <!-- <ng-template let-file pTemplate="file">
+              <ul>
+                <li>{{file.name}} - {{file.size}} bytes</li>
+              </ul>
+            </ng-template> -->
+          </p-fileUpload>
+        </div>
+
+        <div class="ui-g-offset-3 ui-g-9">
+          <app-error-component [showError]="checkFieldValidation('image')" errorMsg="Escolha alguma imagem">
+          </app-error-component>
+        </div>
+      </div>
+
+      <div class="ui-g-12">
+        <div class="ui-g-3">
+          <label for="name">Nome *:</label>
+        </div>
+
+        <div class="ui-g-9">
+          <input pInputText formControlName="name" />
+        </div>
+
+        <div class="ui-g-offset-3 ui-g-9">
+          <app-error-component [showError]="checkFieldValidation('name')" errorMsg="Preencha com algum nome">
+          </app-error-component>
+        </div>
+      </div>
+
+      <div class="ui-g-12">
+        <div class="ui-g-3">
+          <label for="descricao">Descrição *:</label>
+        </div>
+
+        <div class="ui-g-9">
+          <textarea pInputTextarea rows="3" cols="30" autoResize="autoResize" formControlName="descricao"></textarea>
+        </div>
+
+        <div class="ui-g-offset-3 ui-g-9">
+          <app-error-component [showError]="checkFieldValidation('descricao')" errorMsg="Preencha com alguma descrição">
+          </app-error-component>
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="fa-close" (click)="cancelar()" label="Cancelar"></button>
+        <button type="submit" pButton icon="fa-check" label="Adicionar"></button>
+      </div>
+    </p-footer>
+  </form>
+</p-dialog>

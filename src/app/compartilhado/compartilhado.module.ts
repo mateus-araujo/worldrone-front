@@ -1,3 +1,4 @@
+import { DroneService } from './services/drone.service';
 import { UserService } from './services/user.service';
 import { HttpModule } from '@angular/http';
 import { FormDebugComponent } from './form-debug/form-debug.component';
@@ -19,6 +20,6 @@ import { ErrorComponent } from './error-component/error.component';
     ErrorComponent
   ],
   providers: [
-    UserService]
+    UserService, DroneService]
 })
 export class CompartilhadoModule { }

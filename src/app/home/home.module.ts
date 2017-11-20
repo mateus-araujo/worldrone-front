@@ -6,12 +6,13 @@ import { HomeComponent } from './home.component';
 
 import {
   PanelModule, GrowlModule, ButtonModule, SplitButtonModule, TabViewModule,
-  CodeHighlighterModule, DialogModule, InputTextModule, InputMaskModule, InputTextareaModule
+  CodeHighlighterModule, DialogModule, InputTextModule, InputMaskModule, InputTextareaModule, FileUploadModule
 } from 'primeng/primeng';
 
 import { HomeClienteComponent } from './cliente/home-cliente.component';
 import { HomeAdminComponent } from './admin/home-admin.component';
 import { ShowUsersComponent } from './show-users/show-users.component';
+import { ShowDronesComponent } from './show-drones/show-drones.component';
 
 @NgModule({
   imports: [
@@ -28,8 +29,9 @@ import { ShowUsersComponent } from './show-users/show-users.component';
     CodeHighlighterModule,
     DialogModule,
     InputTextModule,
-    InputMaskModule
+    InputMaskModule,
+    FileUploadModule
   ],
-  declarations: [HomeComponent, HomeClienteComponent, HomeAdminComponent, ShowUsersComponent]
+  declarations: [HomeComponent, HomeClienteComponent, HomeAdminComponent, ShowUsersComponent, ShowDronesComponent]
 })
 export class HomeModule { }

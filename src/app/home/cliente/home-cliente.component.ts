@@ -1,4 +1,4 @@
-import { Evento } from './../../compartilhado/models/evento';
+import { Evento } from './../../compartilhado/models/evento.model';
 import { Message } from 'primeng/components/common/message';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
