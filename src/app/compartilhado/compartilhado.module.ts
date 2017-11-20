@@ -1,3 +1,6 @@
+import { AuthGuard } from './guard/auth.guard';
+import { GlobalService } from './services/global.service';
+import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 import { DroneService } from './services/drone.service';
 import { UserService } from './services/user.service';
 import { HttpModule } from '@angular/http';
@@ -20,6 +23,6 @@ import { ErrorComponent } from './error-component/error.component';
     ErrorComponent
   ],
   providers: [
-    UserService, DroneService]
+    UserService, DroneService, ConfirmationService]
 })
 export class CompartilhadoModule { }

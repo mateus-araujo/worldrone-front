@@ -1,3 +1,4 @@
+import { CadastroRoutingModule } from './cadastro-routing.module';
 import { InputTextModule, GrowlModule, PasswordModule, ConfirmDialogModule, FieldsetModule } from 'primeng/primeng';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,6 +12,7 @@ import { CompartilhadoModule } from '../compartilhado/compartilhado.module';
     CompartilhadoModule,
     FormsModule,
     ReactiveFormsModule,
+    CadastroRoutingModule,
 
     InputTextModule,
     GrowlModule,

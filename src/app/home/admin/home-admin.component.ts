@@ -15,7 +15,7 @@ export class HomeAdminComponent implements OnInit {
 
   users: Array<User>;
   drones: Array<Drone>;
-  file: any;
+  // file: any;
   show_users: boolean;
   show_drones: boolean;
   displayDrone: boolean;
@@ -29,7 +29,8 @@ export class HomeAdminComponent implements OnInit {
     private droneService: DroneService,
     private formBuilder: FormBuilder
   ) {
-    this.show_users = false;
+    this.show_users = true;
+    this.show_drones = false;
     this.displayDrone = false;
 
     this.userService.getUsers().then(
@@ -52,20 +53,19 @@ export class HomeAdminComponent implements OnInit {
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
-      image: [null, Validators.required],
       name: [null, Validators.required],
-      descricao: [null, Validators.required]
+      description: [null, Validators.required]
     });
   }
 
-  onSelect(event) {
+  /* onSelect(event) {
     this.formulario.get('image').setValue(event.files[0]);
     this.file = event.files[0];
     console.log(this.file);
 
     this.msgs = [];
     this.msgs.push({ severity: 'info', summary: 'File Uploaded', detail: '' });
-  }
+  } */
 
   showUsers() {
     this.show_users = true;
@@ -106,23 +106,26 @@ export class HomeAdminComponent implements OnInit {
     if (this.formulario.valid) {
 
       const drone = new Drone();
-      drone.image = this.formulario.get('image').value;
       drone.name = this.formulario.get('name').value;
-      drone.description = this.formulario.get('descricao').value;
+      drone.description = this.formulario.get('description').value;
 
       console.log(drone);
 
-      this.droneService.createDrone(drone);
+      this.droneService.createDrone(drone).then(
+        () => {
+          this.displayDrone = false;
+          this.formulario.reset();
 
-      this.displayDrone = false;
-      this.formulario.reset();
+          this.msgs = [];
+          this.msgs = [{
+            severity: 'success',
+            summary: 'Concluído',
+            detail: 'Evento adicionado'
+          }];
 
-      this.msgs = [];
-      this.msgs = [{
-        severity: 'success',
-        summary: 'Concluído',
-        detail: 'Evento adicionado'
-      }];
+          location.reload();
+        }
+      );
     } else {
       this.checkFormValidations(this.formulario);
 

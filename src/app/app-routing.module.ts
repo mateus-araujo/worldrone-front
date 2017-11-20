@@ -7,12 +7,15 @@ import { CommonModule } from '@angular/common';
 import { AuthGuard } from './compartilhado/guard/auth.guard';
 
 const appRoutes: Routes = [
+  { path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuard] },
+  { path: 'login', loadChildren: './login/login.module#LoginModule'},
+  { path: 'cadastro', loadChildren: './cadastro/cadastro.module#CadastroModule'},
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  // { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'cadastro', component: CadastroComponent },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

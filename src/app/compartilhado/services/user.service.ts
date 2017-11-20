@@ -34,6 +34,11 @@ export class UserService {
       .then(response => response.json());
   }
 
+  deleteUser(id: number) {
+    return this.http.delete(`${this.baseURL}/user/${id}`)
+      .toPromise();
+  }
+
   getUser(id: number): Promise<User> {
     return this.http.get(`${this.baseURL}/user/${id}`)
       .toPromise()

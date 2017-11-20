@@ -33,7 +33,7 @@ import { ConfirmationService } from 'primeng/components/common/confirmationservi
     NavBarModule,
     RouterModule
   ],
-  providers: [ConfirmationService, GlobalService, AuthGuard],
+  providers: [GlobalService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

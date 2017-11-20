@@ -1,3 +1,4 @@
+import { LoginRoutingModule } from './login-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ButtonModule, CheckboxModule, DialogModule, InputTextModule, FieldsetModule, GrowlModule, Fieldset } from 'primeng/primeng';
 import { CompartilhadoModule } from './../compartilhado/compartilhado.module';
@@ -11,6 +12,7 @@ import { LoginComponent } from './login.component';
     FormsModule,
     ReactiveFormsModule,
     CompartilhadoModule,
+    LoginRoutingModule,
 
     ButtonModule,
     CheckboxModule,

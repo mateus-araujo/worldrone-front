@@ -1,3 +1,5 @@
+import { HomeRoutingModule } from './home-routing.module';
+import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CompartilhadoModule } from './../compartilhado/compartilhado.module';
 import { NgModule } from '@angular/core';
@@ -6,7 +8,8 @@ import { HomeComponent } from './home.component';
 
 import {
   PanelModule, GrowlModule, ButtonModule, SplitButtonModule, TabViewModule,
-  CodeHighlighterModule, DialogModule, InputTextModule, InputMaskModule, InputTextareaModule, FileUploadModule
+  CodeHighlighterModule, DialogModule, InputTextModule, InputMaskModule,
+  InputTextareaModule, FileUploadModule, DataListModule, ConfirmDialogModule
 } from 'primeng/primeng';
 
 import { HomeClienteComponent } from './cliente/home-cliente.component';
@@ -20,6 +23,7 @@ import { ShowDronesComponent } from './show-drones/show-drones.component';
     CompartilhadoModule,
     ReactiveFormsModule,
     FormsModule,
+    HomeRoutingModule,
 
     PanelModule,
     GrowlModule,
@@ -30,7 +34,9 @@ import { ShowDronesComponent } from './show-drones/show-drones.component';
     DialogModule,
     InputTextModule,
     InputMaskModule,
-    FileUploadModule
+    FileUploadModule,
+    DataListModule,
+    ConfirmDialogModule
   ],
   declarations: [HomeComponent, HomeClienteComponent, HomeAdminComponent, ShowUsersComponent, ShowDronesComponent]
 })

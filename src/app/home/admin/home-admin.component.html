@@ -5,8 +5,11 @@
         Área do administrador
       </span>
 
-      <button pButton style="float:right" label="Usuários" icon="fa-eye" (click)="showUsers()"></button>
+      
+      
+      <button pButton style="float:right" label="Drone alugados" icon="fa-eye" (click)="showDrones()"></button>
       <button pButton style="float:right" label="Drones" icon="fa-eye" (click)="showDrones()"></button>
+      <button pButton style="float:right" label="Usuários" icon="fa-eye" (click)="showUsers()"></button>
     </div>
   </p-header>
 
@@ -18,35 +21,13 @@
     </button>
     <button *ngIf="show_users" pButton type="button" icon="fa-plus" label="Novo usuário" [routerLink]="['/cadastro']" class="ui-button-info">
     </button>
-    <button pButton type="button" icon="fa-list" label="View" class="ui-button-success"></button>
+    <!-- <button pButton type="button" icon="fa-list" label="View" class="ui-button-success"></button> -->
   </p-footer>
 </p-panel>
 
-<p-dialog header="Adicionar drone" [(visible)]="displayDrone" modal="modal" width="500" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
+<p-dialog header="Adicionar drone" [(visible)]="displayDrone" modal="modal" width="450" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
   <form [formGroup]="formulario" (ngSubmit)="addDrone()">
     <div class="ui-g ui-fluid">
-      <div class="ui-g-12">
-        <div class="ui-g-3">
-          <label for="image">Imagem *:</label>
-        </div>
-
-        <div class="ui-g-9">
-          <p-fileUpload mode="basic" name="image[]" accept="image/*" 
-            maxFileSize="1000000" (onSelect)="onSelect($event)" chooseLabel="Adicionar imagem">
-            <!-- <ng-template let-file pTemplate="file">
-              <ul>
-                <li>{{file.name}} - {{file.size}} bytes</li>
-              </ul>
-            </ng-template> -->
-          </p-fileUpload>
-        </div>
-
-        <div class="ui-g-offset-3 ui-g-9">
-          <app-error-component [showError]="checkFieldValidation('image')" errorMsg="Escolha alguma imagem">
-          </app-error-component>
-        </div>
-      </div>
-
       <div class="ui-g-12">
         <div class="ui-g-3">
           <label for="name">Nome *:</label>
@@ -64,15 +45,15 @@
 
       <div class="ui-g-12">
         <div class="ui-g-3">
-          <label for="descricao">Descrição *:</label>
+          <label for="description">Descrição *:</label>
         </div>
 
         <div class="ui-g-9">
-          <textarea pInputTextarea rows="3" cols="30" autoResize="autoResize" formControlName="descricao"></textarea>
+          <textarea pInputTextarea rows="3" cols="26" autoResize="autoResize" formControlName="description"></textarea>
         </div>
 
         <div class="ui-g-offset-3 ui-g-9">
-          <app-error-component [showError]="checkFieldValidation('descricao')" errorMsg="Preencha com alguma descrição">
+          <app-error-component [showError]="checkFieldValidation('description')" errorMsg="Preencha com alguma descrição">
           </app-error-component>
         </div>
       </div>

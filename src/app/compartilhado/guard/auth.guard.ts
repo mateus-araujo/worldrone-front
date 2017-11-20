@@ -13,22 +13,23 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private globalService: GlobalService,
-    private usuarioService: UserService,
+    private userService: UserService,
     private router: Router
-  ) { }
+  ) {
+    this.globalService.checkLogin.subscribe(
+      (login: boolean) => this.checkLogin = login);
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
 
-    this.globalService.checkLogin.subscribe(
-      (login: boolean) => this.checkLogin = login);
-
     if (this.checkLogin) {
       return true;
     }
 
+    // this.router.navigate(['login']);
     return false;
   }
 

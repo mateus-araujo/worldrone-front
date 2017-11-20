@@ -1,5 +1,24 @@
-<div *ngFor="let user of users">
-  <div>
-    {{ user.name }}
-  </div>
-</div>
+<p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+
+<p-dataList [value]="users" [paginator]="true" [rows]="5">
+  <p-header>
+    Lista de usuários
+  </p-header>
+  <ng-template let-user pTemplate="item">
+    <div class="ui-g ui-fluid user-item">
+      <div class="ui-g-10 user-details">
+        <div class="ui-g">
+          <div class="ui-g-2 ui-sm-6">Nome: </div>
+          <div class="ui-g-10 ui-sm-6">{{user.name}}</div>
+
+          <div class="ui-g-2 ui-sm-6">Email: </div>
+          <div class="ui-g-10 ui-sm-6">{{user.email}}</div>
+        </div>
+      </div>
+      <div class="ui-g-2">
+        <button pButton type="button" icon="fa-trash" label="Remover" (click)="removerUsuario(user.id)" class="ui-button-danger">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</p-dataList>

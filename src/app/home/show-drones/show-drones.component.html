@@ -1,5 +1,25 @@
-<div *ngFor="let drone of drones">
-  <div>
-    {{ drone.name }}
-  </div>
-</div>
+<p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+
+<p-dataList [value]="drones" [paginator]="true" [rows]="5">
+  <p-header>
+    Lista de drones
+  </p-header>
+  <ng-template let-drone pTemplate="item">
+    <div class="ui-g ui-fluid drone-item">
+      <div class="ui-g-10 drone-details">
+        <div class="ui-g">
+          <div class="ui-g-2 ui-sm-6">Nome: </div>
+          <div class="ui-g-10 ui-sm-6">{{drone.name}}</div>
+
+          <div class="ui-g-2 ui-sm-6">Descrição: </div>
+          <div class="ui-g-10 ui-sm-6">{{drone.description}}</div>
+        </div>
+      </div>
+      <div class="ui-g-2">
+        <button pButton type="button" icon="fa-trash" label="Remover" (click)="removerDrone(drone.id)" class="ui-button-danger">
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <div></div>
+</p-dataList>
