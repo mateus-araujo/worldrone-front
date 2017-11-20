@@ -19,7 +19,7 @@
   </p-footer>
 </p-panel>
 
-<p-dialog header="Alugar novo drone" [(visible)]="displayAluguel" modal="modal" width="450" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
+<p-dialog header="Alugar novo drone" [(visible)]="displayAluguel" modal="modal" width="470" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
   <form [formGroup]="formulario" (ngSubmit)="addAluguel()">
     <div class="ui-g ui-fluid">
       <div class="ui-g-12">
@@ -28,7 +28,8 @@
         </div>
       
         <div class="ui-g-9">
-          <p-dropdown [options]="drones" formControlName="drone" placeholder="Selecione um"></p-dropdown>
+          <p-dropdown [options]="drones" formControlName="drone" 
+            placeholder="Selecione um drone" [style]="{'width':'310px'}"></p-dropdown>
         </div>
       
         <div class="ui-g-offset-3 ui-g-9">
