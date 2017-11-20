@@ -1,7 +1,8 @@
+import { User } from './../../compartilhado/models/user.model';
 import { AlugaDroneService } from './../../compartilhado/services/aluga-drone.service';
 import { GlobalService } from './../../compartilhado/services/global.service';
 import { AlugaDrone } from './../../compartilhado/models/aluga-drone.model';
-import { UserService} from './../../compartilhado/services/user.service';
+import { UserService } from './../../compartilhado/services/user.service';
 import { DroneService } from './../../compartilhado/services/drone.service';
 import { Evento } from './../../compartilhado/models/evento.model';
 import { Message } from 'primeng/components/common/message';
@@ -20,6 +21,7 @@ export class HomeClienteComponent implements OnInit {
   formulario: FormGroup;
   // drones: Array<Drone>;
   drones: SelectItem[];
+  alugaDrones: Array<AlugaDrone>;
 
   msgs: Message[] = [];
   displayAluguel: boolean;
@@ -27,11 +29,34 @@ export class HomeClienteComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private droneService: DroneService,
-    private alugaDrone: AlugaDroneService,
+    private alugaDroneService: AlugaDroneService,
     private userService: UserService,
     private globalService: GlobalService
   ) {
     this.displayAluguel = false;
+
+    this.userService.checkLogin().then(
+      (user: User) => {
+        this.alugaDroneService.getAlugaDronesByUser(user.id).then(
+          (alugaDrones: Array<AlugaDrone>) => {
+            this.alugaDrones = alugaDrones;
+
+            for (let i = 0; i < alugaDrones.length; i++) {
+              const id_drone = alugaDrones[i].drone_id;
+              this.droneService.getDrone(id_drone).then(
+                (drone: Drone) => this.alugaDrones[i].drone_name = drone.name
+              );
+
+              const id_user = alugaDrones[i].user_id;
+              this.userService.getUser(id_user).then(
+                (usuario: User) => this.alugaDrones[i].user_name = usuario.name
+              );
+            }
+            console.log(this.alugaDrones);
+          }
+        );
+      }
+    );
 
     this.droneService.getAllDrones().then(
       (drones: Array<Drone>) => {
@@ -102,7 +127,7 @@ export class HomeClienteComponent implements OnInit {
 
       console.log(alugaDrone);
 
-      this.alugaDrone.createAlugaDrone(alugaDrone);
+      this.alugaDroneService.createAlugaDrone(alugaDrone);
 
       this.displayAluguel = false;
       this.formulario.reset();

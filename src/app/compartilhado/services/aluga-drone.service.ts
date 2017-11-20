@@ -28,6 +28,12 @@ export class AlugaDroneService {
       .then(response => response.json());
   }
 
+  getAlugaDronesByUser(user_id: number): Promise<Array<AlugaDrone>> {
+    return this.http.get(`${this.baseURL}/aluga_drones/user/${user_id}`)
+      .toPromise()
+      .then(response => response.json());
+  }
+
   getAllAlugaDrone(): Promise<Array<AlugaDrone>> {
     return this.http.get(`${this.baseURL}/aluga_drones`)
       .toPromise()

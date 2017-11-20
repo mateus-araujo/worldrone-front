@@ -1,13 +1,17 @@
 <p-panel>
   <p-header>
     <div class="ui-helper-clearfix">
-      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Meus eventos</span>
+      <span class="ui-panel-title" 
+        style="font-size:16px;display:inline-block;margin-top:2px">
+          Área do cliente
+      </span>
 
       <!-- <button pButton style="float:right" label="Novo evento" icon="fa-plus" (click)="dialogEvento()"></button> -->
     </div>
   </p-header>
 
-  <h1>Eventos do usuário</h1>
+  <h3 *ngIf="!alugaDrones">Nenhum aluguel realizado</h3>
+  <app-show-aluga-drone *ngIf="alugaDrones" [alugaDrones]="alugaDrones"></app-show-aluga-drone>
 
   <p-footer>
     <button pButton type="button" icon="fa-plus" label="Alugar novo drone" (click)="dialogAluguel()"></button>
