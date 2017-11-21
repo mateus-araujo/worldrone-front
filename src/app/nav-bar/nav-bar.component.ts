@@ -43,8 +43,13 @@ export class NavBarComponent implements OnInit {
   }
 
   sair() {
-    this.userService.logout().then();
-    location.reload();
-    this.router.navigate(['login']);
+    this.userService.logout().then(
+      () => {
+        this.router.navigate(['login']);
+        location.reload();
+      }, err => {
+        location.reload();
+      }
+    );
   }
 }

@@ -1,3 +1,5 @@
+import { AlugaDroneService } from './compartilhado/services/aluga-drone.service';
+import { UserService } from './compartilhado/services/user.service';
 import { AuthGuard } from './compartilhado/guard/auth.guard';
 import { GlobalService } from './compartilhado/services/global.service';
 import { CadastroModule } from './cadastro/cadastro.module';
@@ -16,6 +18,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
+import { DroneService } from './compartilhado/services/drone.service';
 
 
 @NgModule({
@@ -33,7 +36,13 @@ import { ConfirmationService } from 'primeng/components/common/confirmationservi
     NavBarModule,
     RouterModule
   ],
-  providers: [GlobalService, AuthGuard],
+  providers: [
+    GlobalService,
+    AuthGuard,
+    UserService,
+    DroneService,
+    AlugaDroneService,
+    ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

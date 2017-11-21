@@ -22,6 +22,7 @@ export class HomeClienteComponent implements OnInit {
   // drones: Array<Drone>;
   drones: SelectItem[];
   alugaDrones: Array<AlugaDrone>;
+  user_id: number;
 
   msgs: Message[] = [];
   displayAluguel: boolean;
@@ -37,6 +38,9 @@ export class HomeClienteComponent implements OnInit {
 
     this.userService.checkLogin().then(
       (user: User) => {
+
+        this.user_id = user.id;
+
         this.alugaDroneService.getAlugaDronesByUser(user.id).then(
           (alugaDrones: Array<AlugaDrone>) => {
             this.alugaDrones = alugaDrones;
@@ -127,24 +131,38 @@ export class HomeClienteComponent implements OnInit {
 
       console.log(alugaDrone);
 
-      this.alugaDroneService.createAlugaDrone(alugaDrone);
+      this.alugaDroneService.createAlugaDrone(alugaDrone).then(
+        () => {
+          this.msgs = [];
+          this.msgs = [{
+            severity: 'success',
+            summary: 'Concluído',
+            detail: 'Aluguel solicitado'
+          }];
 
-      this.displayAluguel = false;
-      this.formulario.reset();
+          this.displayAluguel = false;
+          this.formulario.reset();
+          location.reload();
+        }, err => {
+          this.msgs = [];
+          this.msgs = [{
+            severity: 'error',
+            summary: 'Erro',
+            detail: 'Não foi possível realizar o aluguel'
+          }];
 
-      this.msgs = [];
-      this.msgs = [{
-        severity: 'success',
-        summary: 'Concluído',
-        detail: 'Evento adicionado'
-      }];
+          this.displayAluguel = false;
+          this.formulario.reset();
+          location.reload();
+        }
+      );
     } else {
       this.checkFormValidations(this.formulario);
 
       this.msgs = [];
       this.msgs = [{
         severity: 'error',
-        summary: 'Erro ao adicionar',
+        summary: 'Erro ao solicitar',
         detail: 'Preencha os dados corretamente'
       }];
     }

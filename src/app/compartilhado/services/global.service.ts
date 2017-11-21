@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { User } from './../models/user.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -8,14 +9,15 @@ export class GlobalService {
   private logado = new BehaviorSubject<boolean>(false);
   checkLogin = this.logado.asObservable();
 
-  private tipo_usuario = new BehaviorSubject<number>(2);
+  private tipo_usuario = new BehaviorSubject<number>(0);
   usuarioTipo = this.tipo_usuario.asObservable();
 
-  private id_usuario = new BehaviorSubject<number>(1);
+  private id_usuario = new BehaviorSubject<number>(0);
   usuarioId = this.id_usuario.asObservable();
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.userService.checkLogin().then(
       (user: User) => {
@@ -23,7 +25,11 @@ export class GlobalService {
         this.updateTipoUsuario(user.nivel);
         this.updateId(user.id);
       }, err => {
+        this.updateLogado(false);
+        this.updateTipoUsuario(0);
+        this.updateId(0);
         console.log('User not connected');
+        this.router.navigate(['login']);
       }
     );
   }

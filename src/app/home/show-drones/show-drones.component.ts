@@ -36,13 +36,13 @@ export class ShowDronesComponent implements OnInit {
               detail: 'Drone removido'
             }];
 
-            window.location.reload();
+            location.reload();
           }, err => {
             this.msgs = [];
             this.msgs = [{
               severity: 'error',
               summary: 'Erro',
-              detail: 'Drone não removido'
+              detail: 'Não possível remover'
             }];
           }
         );

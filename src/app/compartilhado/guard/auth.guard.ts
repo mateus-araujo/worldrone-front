@@ -16,8 +16,24 @@ export class AuthGuard implements CanActivate {
     private userService: UserService,
     private router: Router
   ) {
-    this.globalService.checkLogin.subscribe(
-      (login: boolean) => this.checkLogin = login);
+    this.userService.checkLogin().then(
+      (user: User) => {
+        this.globalService.updateLogado(true);
+        this.globalService.updateTipoUsuario(user.nivel);
+        this.globalService.updateId(user.id);
+
+        this.checkLogin = true;
+        console.log('User connected!');
+        this.router.navigate(['home']);
+      }, err => {
+        this.checkLogin = false;
+        this.globalService.updateLogado(false);
+        this.globalService.updateTipoUsuario(0);
+        this.globalService.updateId(0);
+        console.log('User not connected...');
+        this.router.navigate(['login']);
+      }
+    );
   }
 
   canActivate(
@@ -27,10 +43,10 @@ export class AuthGuard implements CanActivate {
 
     if (this.checkLogin) {
       return true;
+    } else if (this.checkLogin === false) {
+      this.router.navigate(['login']);
+      return false;
     }
-
-    // this.router.navigate(['login']);
-    return false;
   }
 
 }

@@ -25,7 +25,8 @@
         </div>
       </div>
       <div class="ui-g-2">
-        <button pButton type="button" icon="fa-trash" label="Remover" class="ui-button-danger">
+        <button pButton type="button" icon="fa-trash" label="Remover" 
+          (click)="removerAlugaDrone(alugadrone.drone_id, alugadrone.user_id)" class="ui-button-danger">
         </button>
       </div>
     </div>

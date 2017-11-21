@@ -43,7 +43,7 @@ export class ShowUsersComponent implements OnInit {
             this.msgs = [{
               severity: 'error',
               summary: 'Erro',
-              detail: 'Usuário não removido'
+              detail: 'Não foi possível remover'
             }];
           }
         );
